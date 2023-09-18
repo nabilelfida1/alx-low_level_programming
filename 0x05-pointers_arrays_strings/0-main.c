@@ -2,17 +2,17 @@
 #include <stdio.h>
 
 /**
- * main - check the code for Holberton School students.
+ * main - check the code for Holberton school students.
  *
  * Return: Always 0.
  */
 int main(void)
 {
-  int n;
+	char s[10] = "Holberton";
 
-  n = 402;
-  printf("n=%d\n", n);
-  reset_to_98(&n);
-  printf("n=%d\n", n);
-  return (0);
+	printf("%s\n", s);
+	rev_string (s);
+	printf("%s\n", s);
+	return (0);
+	
 }
