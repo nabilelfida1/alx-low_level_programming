@@ -1,53 +1,47 @@
-i#include "lists.h"
-#include <stdlib.h>
+#include "lists.h"
 
 /**
- * insert_nodeint_at_index - function that inserts a new node at,
- * a given position.
- * @head: pointer to pointer to the head of linked list.
- * @idx: index of the list where the new node should be added.
- * @n: value of the new node.
+ * insert_nodeint_at_index - function with 3 arguments
+ * @head: pointer to head pointer of first node in linked list
+ * @idx: index of list
+ * @n: value integer
  *
- * if it is not possible to add the new node at index idx, do not,
- * add the new node and return NULL.
- *
- * Return:  the address of the new node, or NULL if it failed.
+ * Description: inserts a new node at a given position
+ * Return: address of the new node
  */
-
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	listint_t *new_node, *traverse;
-	unsigned int i = 0;
-	/* if there is no list return null */
+	listint_t *temp, *cursor;
+	unsigned int count = 0;
+
 	if (head == NULL)
 		return (NULL);
-	/* create the new node */
-	new_node = malloc(sizeof(listint_t));
-	if (new_node == NULL)
+
+	temp = malloc(sizeof(listint_t));
+	if (temp == NULL)
 		return (NULL);
-	/* access the n field of the new_node and initialize it as n */
-	new_node->n = n;
-	/* check if idx = 0 */
+	temp->n = n;
+	cursor = *head;
+
 	if (idx == 0)
 	{
-		/* access the next field of new_node and assign it as first node */
-		new_node->next = *head;
-		*head = new_node;
-		return (new_node);
-	}
-	/* make traverse be the value at head */
-	traverse = *head;
-	while (i != idx - 1 && traverse != NULL)
-	{
-		traverse = traverse->next;
-		i++;
+		temp->next = *head;
+		*head = temp;
+		return (*head);
 	}
 
-	if (i == idx - 1 && traverse != NULL)
+	while (cursor != NULL)
 	{
-		new_node->next = traverse->next;
-		traverse->next = new_node;
-		return (new_node);
+		if (count == idx - 1)
+		{
+			temp->next = cursor->next;
+			cursor->next = temp;
+		}
+		count++;
+		cursor = cursor->next;
 	}
-	return (NULL);
+	if (idx > count)
+		return (NULL);
+	return (temp);
+
 }
