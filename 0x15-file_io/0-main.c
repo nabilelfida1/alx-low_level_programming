@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "main.h"
+#include "holberton.h"
 
 /**
- * main - check the code
+ * main - check the code for Holberton School students.
  *
  * Return: Always 0.
  */
