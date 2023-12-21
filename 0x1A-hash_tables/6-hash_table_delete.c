@@ -1,46 +1,30 @@
 #include "hash_tables.h"
 
-void delete_node(hash_node_t *);
 /**
- * hash_table_delete - delete a hash table.
- * @ht: hash table to delete.
- *
+ * hash_table_delete - Deletes a hash table.
+ * @ht: A pointer to a hash table.
  */
 void hash_table_delete(hash_table_t *ht)
 {
-	hash_node_t *node;
-	unsigned long int idx = 0;
+        hash_table_t *head = ht;
+        hash_node_t *node, *tmp;
+        unsigned long int i;
 
-	while (idx < ht->size)
-	{
-		if (ht->array[idx])
-		{
-			node = ht->array[idx];
-			delete_node(node);
-		}
-		idx++;
-	}
-	free(ht->array);
-	free(ht);
+        for (i = 0; i < ht->size; i++)
+        {
+                if (ht->array[i] != NULL)
+                {
+                        node = ht->array[i];
+                        while (node != NULL)
+                        {
+                                tmp = node->next;
+                                free(node->key);
+                                free(node->value);
+                                free(node);
+                                node = tmp;
+                        }
+                }
+        }
+        free(head->array);
+        free(head);
 }
-
-/**
- * delete_node - deletes a bucket
- * @node: nodes to delete
- */
-void delete_node(hash_node_t *node)
-{
-	hash_node_t *tmp;
-
-	while (node)
-	{
-		tmp = node;
-		free(node->key);
-		if (node->value)
-			free(node->value);
-		node = node->next;
-		free(tmp);
-	}
-}
-
-
